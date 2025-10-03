@@ -89,3 +89,24 @@ footer{padding:28px 0;border-top:1px solid var(--border);color:var(--muted);text
   nav{gap:4px}
   nav a{padding:6px 10px}
 }
+/* Bigger, responsive cards & icons */
+:root{
+  --card-h: clamp(110px, 18vw, 170px);   /* 卡片高度：手機小→桌機大 */
+  --icon-s: calc(var(--card-h) * 0.58);  /* 圖示大小佔卡片高度 58% */
+}
+
+.board{ gap: 14px; }                     /* 你的原本就有，可保留 */
+.card2{ height: var(--card-h); }         /* 用變數控制卡片高度 */
+
+/* 重點：把圖放大（<img> 或 <svg> 都吃得到）*/
+.face img,
+.face svg{
+  width: var(--icon-s);
+  height: var(--icon-s);
+  object-fit: contain;
+  display: block;
+}
+
+/* 如果有用 emoji 當圖示，也一起放大 */
+.face{ font-size: var(--icon-s); line-height: 1; }
+
