@@ -109,4 +109,13 @@ footer{padding:28px 0;border-top:1px solid var(--border);color:var(--muted);text
 
 /* 如果有用 emoji 當圖示，也一起放大 */
 .face{ font-size: var(--icon-s); line-height: 1; }
+.card2 {
+  height: clamp(70px, 12vw, 110px); /* 小螢幕70px, 大螢幕最大110px */
+}
+
+.face img,
+.face svg {
+  width: 70%;
+  height: 70%;
+}
 
