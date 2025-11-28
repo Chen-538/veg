@@ -4,15 +4,16 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>回顧｜蔬食廚房</title>
-   <link rel="icon" href="首頁區/icon.png" type="image/png" sizes="80x80"/>
+  <!-- 從 recap/ 回上一層再找 icon -->
+  <link rel="icon" href="../首頁區/icon.png" type="image/png" sizes="80x80"/>
   <link rel="stylesheet" href="../shared/style.css"/>
 </head>
 <body>
 <header class="header">
   <div class="container inner">
-       <div class="brand">
-      <!-- 放大上方 logo 圖片 -->
-      <img src="首頁區/icon.png" alt="logo"
+    <div class="brand">
+      <!-- 放大上方 logo 圖片，路徑改成 ../ -->
+      <img src="../首頁區/icon.png" alt="logo"
            style="width:48px;height:48px;object-fit:contain;margin-right:8px"/>
       <span>蔬食廚房</span>
     </div>
@@ -26,24 +27,29 @@
     </nav>
   </div>
 </header>
+
 <main class="container">
 <section class="section">
   <h2>回顧~</h2>
   <div class="gallery">
     <figure><img data-lightbox src="../回顧/公園玩.jpg" alt="回顧1"><figcaption>河濱公園我們來了~</figcaption></figure>
-<figure><img data-lightbox src="../回顧/第一場迎新.jpg" alt="回顧2"><figcaption>第一場迎新活動!</figcaption></figure>
-<figure><img data-lightbox src="../回顧/夜市玩.jpg" alt="回顧3"><figcaption>饒河夜市出遊!</figcaption></figure>
-<figure><img data-lightbox src="../回顧/第二場迎新.jpg" alt="回顧4"><figcaption>第二場迎新活動!</figcaption></figure>
-<figure><img data-lightbox src="../回顧/社群介紹.jpg" alt="回顧5"><figcaption>大家認識我們的地方!</figcaption></figure>
-<figure><img data-lightbox src="../回顧/第三場迎新.jpg" alt="回顧6"><figcaption>第三場迎新活動!</figcaption></figure>
-<figure><img data-lightbox src="../回顧/新生搬宿舍.jpg" alt="回顧7"><figcaption>齁齁 搬新家啦!</figcaption></figure>
-<figure><img data-lightbox src="../回顧/第四場迎新.jpg" alt="回顧8"><figcaption>第四場迎新活動!</figcaption></figure>
-<figure><img data-lightbox src="../回顧/中秋蔬烤.jpg" alt="回顧9"><figcaption>一起來蔬烤吧!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/第一場迎新.jpg" alt="回顧2"><figcaption>第一場迎新活動!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/夜市玩.jpg" alt="回顧3"><figcaption>饒河夜市出遊!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/第二場迎新.jpg" alt="回顧4"><figcaption>第二場迎新活動!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/社群介紹.jpg" alt="回顧5"><figcaption>大家認識我們的地方!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/第三場迎新.jpg" alt="回顧6"><figcaption>第三場迎新活動!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/新生搬宿舍.jpg" alt="回顧7"><figcaption>齁齁 搬新家啦!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/第四場迎新.jpg" alt="回顧8"><figcaption>第四場迎新活動!</figcaption></figure>
+    <figure><img data-lightbox src="../回顧/中秋蔬烤.jpg" alt="回顧9"><figcaption>一起來蔬烤吧!</figcaption></figure>
   </div>
 </section>
 
 </main>
 <footer>© 2025 Veg</footer>
-<div class="lb" aria-hidden="true"><button class="close" aria-label="關閉">關閉</button><img alt="預覽"/></div>
+<div class="lb" aria-hidden="true">
+  <button class="close" aria-label="關閉">關閉</button>
+  <img alt="預覽"/>
+</div>
 <script src="../shared/site.js"></script>
-</body></html>
+</body>
+</html>
