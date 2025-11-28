@@ -4,15 +4,16 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>聯絡｜蔬食廚房</title>
-   <link rel="icon" href="首頁區/icon.png" type="image/png" sizes="80x80"/>
+  <!-- 從 contact/ 回到上一層再找 icon -->
+  <link rel="icon" href="../首頁區/icon.png" type="image/png" sizes="80x80"/>
   <link rel="stylesheet" href="../shared/style.css"/>
 </head>
 <body>
 <header class="header">
   <div class="container inner">
-      <div class="brand">
-      <!-- 放大上方 logo 圖片 -->
-      <img src="首頁區/icon.png" alt="logo"
+    <div class="brand">
+      <!-- 放大上方 logo 圖片，路徑改成上一層 -->
+      <img src="../首頁區/icon.png" alt="logo"
            style="width:48px;height:48px;object-fit:contain;margin-right:8px"/>
       <span>蔬食廚房</span>
     </div>
@@ -26,6 +27,7 @@
     </nav>
   </div>
 </header>
+
 <main class="container">
 <section class="section">
   <h2>聯絡</h2>
@@ -56,12 +58,16 @@
     <div class="mapwrap">
       <iframe title="地圖" src="https://www.google.com/maps?q=Shih%20Chien%20University&output=embed" loading="lazy"></iframe>
     </div>
-    <p class="small"> <code>&lt;iframe&gt;</code> </p>
+    <p class="small"><code>&lt;iframe&gt;</code></p>
   </div>
 </section>
 
 </main>
 <footer>© 2025 Veg</footer>
-<div class="lb" aria-hidden="true"><button class="close" aria-label="關閉">關閉</button><img alt="預覽"/></div>
+<div class="lb" aria-hidden="true">
+  <button class="close" aria-label="關閉">關閉</button>
+  <img alt="預覽"/>
+</div>
 <script src="../shared/site.js"></script>
-</body></html>
+</body>
+</html>
