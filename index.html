@@ -4,13 +4,19 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>首頁｜蔬食廚房</title>
-  <link rel="icon" href="首頁區/icon.png"/>
+  <!-- 放大 favicon 使用的圖尺寸 -->
+  <link rel="icon" href="首頁區/icon.png" type="image/png" sizes="80x80"/>
   <link rel="stylesheet" href="shared/style.css"/>
 </head>
 <body>
 <header class="header">
   <div class="container inner">
-      <div class="brand"><img src="首頁區/icon.png" alt="logo"/><span>蔬食廚房</span></div>
+    <div class="brand">
+      <!-- 放大上方 logo 圖片 -->
+      <img src="首頁區/icon.png" alt="logo"
+           style="width:48px;height:48px;object-fit:contain;margin-right:8px"/>
+      <span>蔬食廚房</span>
+    </div>
     <nav>
       <a href="index.html">首頁</a>
       <a href="community/index.html">社群</a>
@@ -21,90 +27,118 @@
     </nav>
   </div>
 </header>
+
 <main class="container">
-<section class="hero">
-  <div class="banner"></div>
-  <div class="grid cols-2">
-    <div>
-      <h1>蔬食社群 · 自然、乾淨、實惠</h1>
-      <p></p>
-      <div class="grid cols-3" style="max-width:520px">
-        <a class="card" href="community/index.html"><b>社群</b><p class="small">我們的活動與精神，凝聚每位夥伴的力量與情感，在交流與分享中成長。透過聚會、合作與紀錄，我們一起打造充滿溫暖與活力的社群，讓彼此的故事得以傳承。</p></a>
-        <a class="card" href="meals/index.html"><b>餐點</b><p class="small">精選美食品項，結合多張特色照片與詳細介紹，呈現每一道蔬食的用心與美味。無論是日常料理還是特別聚會，這裡都能展現健康、創意與幸福的滋味，滿足身心靈。</p></a>
-        <a class="card" href="game/index.html"><b>遊戲</b><p class="small">翻牌配對，輕鬆好玩，不僅能挑戰記憶力與反應力，更能帶來歡笑與驚喜。透過互動與比賽，參與者之間增進感情，營造愉快氛圍，讓學習與娛樂自然融合。</p></a>
+
+  <!-- 首頁上方：標題 + 三大亮點 -->
+  <section class="hero">
+    <div class="banner"></div>
+    <!-- 這裡加 align-items:stretch，讓兩欄一樣高 -->
+    <div class="grid cols-2" style="align-items:stretch;">
+      <div>
+        <h1>蔬食社群 · 自然、乾淨、實惠</h1>
+        <p class="small">
+          把好吃、便宜又環保的蔬食，做成實踐校園裡最日常的一件事。
+        </p>
+
+        <h2 style="margin:16px 0 8px">三大亮點</h2>
+        <div class="grid cols-3" style="max-width:520px">
+          <a class="card" href="community/index.html">
+            <img src="首頁區/社群.png" alt="社群" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:8px">
+            <b>社群理念</b>
+            <p class="small">
+              我們透過交流與分享凝聚力量，在每一次的聚會和合作中成長，一起打造溫暖、有活力的社群，讓彼此的故事得以傳承。
+            </p>
+          </a>
+          <a class="card" href="meals/index.html">
+            <img src="圖片/炒麵.jpg" alt="餐點" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:8px">
+            <b>餐點</b>
+            <p class="small">
+              精選美味的蔬食餐點，結合多張特色照片，呈現每一道蔬食料理的用心與美味。
+            </p>
+          </a>
+          <a class="card" href="game/index.html">
+            <img src="首頁區/遊戲.png" alt="遊戲" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:8px">
+            <b>遊戲</b>
+            <p class="small">
+              翻牌配對遊戲上線啦！🥦🍉
+              不僅簡單又好玩，還能挑戰記憶力與反應力
+              看看你能多快找到所有蔬果配對！
+            </p>
+          </a>
+        </div>
       </div>
-      <div style="margin-top:12px">
-       
-       
+
+      <!-- 這個框框改成撐滿整欄的高度 -->
+      <div class="card"
+           style="height:100%;display:flex;flex-direction:column;justify-content:flex-start;">
+        <h2 style="margin:0 0 6px">我們在做什麼</h2>
+        <h3>
+          用美味蔬食推廣環保：為地球盡一份力的同時，也給實踐大學的學弟妹們
+          帶來好吃又沒有負擔的餐點，讓「一餐蔬食」變成很自然的選擇。
+        </h3>
       </div>
     </div>
-    <div class="card">
-      <h3 style="margin:0 0 8px">我們在做什麼</h3>
-      <p>用美味蔬食推廣環保：為地球盡一份力的同時,也給實踐大學的學弟妹們帶來好吃又沒有負擔的餐點~</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-
-<section class="section">
-  <div class="hero2">
-    <img src="回顧/第三場迎新.jpg" alt="主視覺橫幅">
-    <div class="overlay"></div>
-    <div class="text">
-      <h1>一起把蔬食，做成最酷的校園日常</h1>
-      <p>精選食材 × 便宜實惠 × 參與式活動。一餐的改變，也能為地球省很多。</p>
-      <div class="hero-links">
+  <!-- 大合照主視覺 -->
+  <section class="section">
+    <div class="hero2">
+      <!-- 這張圖改成半透明 -->
+      <img src="回顧/測試.png" alt="主視覺橫幅" style="opacity:0.65;">
+      <div class="overlay"></div>
+      <div class="text">
+        <h1>一起把蔬食，變成最酷的校園日常！</h1>
+        <h5>精選食材 × 便宜實惠 × 參與式活動。一餐的改變，也能為地球盡一份心力。</h5>
+        <div class="hero-links"></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section">
-  <h2>三大亮點</h2>
-  <div class="grid cols-3">
-    <a class="card" href="community/index.html">
-      <img src="首頁區/社群.png" alt="亮點1" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:8px">
-      <b>社群</b><p class="small"> 精選食材 × 便宜實惠 × 參與式活動 </p>
-    </a>
-    <a class="card" href="meals/index.html">
-      <img src="圖片/炒麵.jpg" alt="亮點2" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:8px">
-      <b>餐點</b><p class="small">好吃是第一原則</p>
-    </a>
-    <a class="card" href="game/index.html">
-      <img src="首頁區/遊戲.png" alt="亮點3" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:8px">
-      <b>遊戲</b><p class="small">翻牌配對 · 輕鬆上手</p>
-    </a>
-  </div>
-</section>
-
-<section class="section">
-  <h2>最新消息</h2>
-  <div class="news">
-    <div class="item"><b>10/8 咖哩飯 + 桂花綠茶</b><p class="small">好吃的咖哩飯 令你舌尖彈跳!</p></div>
-    <div class="item"><b>10/15 烏龍麵 + 冬瓜茶</b><p class="small">道地的日式烏龍麵 為你帶來新體驗!</p></div>
-    <div class="item"><b>10/22 羹飯 + 桂花綠茶</b><p class="small">你可能有所不知的羹飯 為你帶來新滋味!</p></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="quote">
-    <h2 style="margin-bottom:6px">「一餐蔬食，愛地球一小步。」</h2>
-    <p class="small">Just one plant‑based meal can cut the footprint of your day.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="cta">
-    <div>
-      <h3 style="margin:0 0 6px">喜歡我們做的事？</h3>
-      <p class="small">加入社群、參加活動、，一起把蔬食做成校園習慣。</p>
+  <section class="section">
+    <h2>最新消息</h2>
+    <div class="news">
+      <div class="item">
+        <b>10/8 咖哩飯 + 桂花綠茶</b>
+        <p class="small">好吃的咖哩飯，令你舌尖彈跳！</p>
+      </div>
+      <div class="item">
+        <b>10/15 烏龍麵 + 冬瓜茶</b>
+        <p class="small">道地的日式烏龍麵，為你帶來新體驗！</p>
+      </div>
+      <div class="item">
+        <b>10/22 羹飯 + 桂花綠茶</b>
+        <p class="small">你可能有所不知的羹飯，為你帶來新滋味！</p>
+      </div>
     </div>
-    <a class="btn earth" href="contact/index.html">我要加入</a>
-  </div>
-</section>
+  </section>
+
+  <section class="section">
+    <div class="quote">
+      <h2 style="margin-bottom:6px">「一餐蔬食，愛地球一小步。」</h2>
+      <p class="small">Just one plant-based meal can cut the footprint of your day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta">
+      <div>
+        <h3 style="margin:0 0 6px">喜歡我們做的事？</h3>
+        <p class="small">加入社群、參加活動，一起把蔬食做成校園習慣。</p>
+      </div>
+      <a class="btn earth" href="contact/index.html">我要加入</a>
+    </div>
+  </section>
 
 </main>
+
 <footer>© 2025 Veg</footer>
-<div class="lb" aria-hidden="true"><button class="close" aria-label="關閉">關閉</button><img alt="預覽"/></div>
+
+<div class="lb" aria-hidden="true">
+  <button class="close" aria-label="關閉">關閉</button>
+  <img alt="預覽"/>
+</div>
+
 <script src="shared/site.js"></script>
-</body></html>
+</body>
+</html>
