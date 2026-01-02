@@ -3,24 +3,29 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>社群｜蔬食社群</title>
-  <link rel="icon" href="../首頁區/icon.png"/>
+  <title>社群｜蔬食廚房</title>
+  <!-- 從 community/ 資料夾回到上一層，再找到 首頁區/icon.png -->
+  <link rel="icon" href="../首頁區/icon.png" type="image/png" sizes="80x80"/>
   <link rel="stylesheet" href="../shared/style.css"/>
 </head>
 <body>
 <header class="header">
   <div class="container inner">
-    <div class="brand"><img src="../首頁區/icon.png" alt="logo"/><span>蔬食社群</span></div>
+       <div class="brand">
+      <!-- 放大上方 logo 圖片 -->
+      <img src="../首頁區/icon.png" alt="logo"
+           style="width:48px;height:48px;object-fit:contain;margin-right:8px"/>
+      <span>蔬食廚房</span>
+    </div>
     <nav>
-       <a href="index.html">首頁</a>
-      <a href="community/index.html">社群</a>
-      <a href="meals/index.html">餐點</a>
-      <a href="recap/index.html">回顧</a>
-      <a href="game/index.html">遊戲</a>
-      <a href="contact/index.html">聯絡</a>
-      <a href="index2.html">蔬菜辨識器</a>
-      <a href="index3.html">蔬食食譜</a>
-
+      <a href="../index.html">首頁</a>
+      <a href="../community/index.html">社群</a>
+      <a href="../meals/index.html">餐點</a>
+      <a href="../recap/index.html">回顧</a>
+      <a href="../game/index.html">遊戲</a>
+      <a href="../contact/index.html">聯絡</a>
+      <a href="../index2.html">蔬果辨識器</a>
+      <a href="../index3.html">蔬食食譜</a>
     </nav>
   </div>
 </header>
@@ -376,7 +381,9 @@
 </body>
 </html>
 
+
 <footer>© 2025 Veg</footer>
 <div class="lb" aria-hidden="true"><button class="close" aria-label="關閉">關閉</button><img alt="預覽"/></div>
 <script src="../shared/site.js"></script>
-</body></html>
+</body>
+</html>
