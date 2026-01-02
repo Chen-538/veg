@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>蔬菜食譜 200 | 想不到要吃什麼嗎？</title>
+  <style>
+    :root{
+      --bg:#fbfbf9;--ink:#1f2937;--muted:#6b7280;--paper:#ffffff;--accent:#22c55e;--accent-2:#16a34a;--ring:#bbf7d0;--card:#f7f7f4;--shadow:0 1px 0 rgba(0,0,0,.03), 0 10px 30px rgba(0,0,0,.07);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans TC","PingFang TC",sans-serif}
+    a{color:inherit}
+
+    /* ===== Layout ===== */
+    .page{display:grid;grid-template-columns:90px 1fr;min-height:100dvh}
+    .sidebar{position:sticky;top:0;height:100dvh;background:linear-gradient(180deg,#f1f5f9 0%,#eef7f1 100%);display:flex;align-items:center;justify-content:center;border-right:1px solid #e5e7eb}
+    .sidebar .vertical{writing-mode:vertical-rl;letter-spacing:.25em;font-weight:800;font-size:24px;color:#0f172a;opacity:.8}
+
+    main{padding:28px 28px 40px;}
+
+    /* ===== Hero ===== */
+    .hero{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+    .title{font-weight:900;font-size:clamp(22px,2.8vw,36px);letter-spacing:.02em}
+    .subtitle{color:var(--muted);font-size:14px;margin-top:-6px}
+
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{appearance:none;border:0;background:var(--accent);color:#fff;font-weight:700;padding:12px 18px;border-radius:14px;box-shadow:var(--shadow);cursor:pointer;transition:.25s transform,.25s box-shadow,.25s background}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(34,197,94,.35);}
+    .btn:active{transform:translateY(0)}
+    .btn.secondary{background:#111827;color:#fff}
+    .btn.ghost{background:transparent;color:#111827;border:2px solid #e5e7eb}
+
+    /* Micro interaction */
+    .btn.shake{animation:shake .4s ease both}
+    @keyframes shake{10%{transform:translateX(-2px)} 20%{transform:translateX(3px)} 30%{transform:translateX(-3px)} 40%{transform:translateX(2px)} 50%{transform:translateX(0)}}
+
+    /* ===== Toolbar (search + chips) ===== */
+    .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:16px 0 24px}
+    .search{flex:1;min-width:220px;background:var(--paper);border:1px solid #e5e7eb;border-radius:14px;padding:10px 14px;display:flex;gap:10px;box-shadow:var(--shadow)}
+    .search input{flex:1;border:0;outline:0;font-size:15px;background:transparent}
+    .chip{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;color:#111827;font-weight:600;font-size:13px;cursor:pointer;transition:.2s;white-space:nowrap}
+    .chip.active{background:var(--ring);border-color:#86efac}
+
+    /* ===== Grid ===== */
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{background:var(--paper);border:1px solid #ececec;border-radius:18px;box-shadow:var(--shadow);padding:14px 14px 12px;position:relative;overflow:hidden;transform:translateY(8px);opacity:0;transition:.35s ease}
+    .card.show{transform:none;opacity:1}
+    .card:hover{box-shadow:0 10px 30px rgba(0,0,0,.09)}
+    .badge{position:absolute;top:10px;right:10px;font-size:12px;padding:4px 8px;border-radius:999px;background:#111827;color:#fff}
+    .card h3{margin:0 0 6px;font-size:17px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+    .tag{font-size:12px;border:1px solid #e5e7eb;padding:4px 8px;border-radius:999px;background:#fafafa}
+    .note{color:var(--muted);font-size:13px}
+    .card .actions{display:flex;gap:8px;margin-top:12px}
+
+    /* ===== Modal (detail) ===== */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:flex-end;justify-content:center;padding:16px}
+    .overlay.show{display:flex}
+    .sheet{width:min(780px,100%);background:var(--paper);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.22);overflow:hidden;transform:translateY(24px);opacity:0;transition:.28s}
+    .overlay.show .sheet{transform:none;opacity:1}
+    .sheet header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #eee}
+    .sheet h2{margin:0;font-size:20px}
+    .sheet .content{padding:12px 18px 18px}
+    .pill{display:inline-flex;gap:6px;align-items:center;background:#f1f5f9;padding:6px 10px;border-radius:999px;font-size:12px;margin-right:8px}
+    .ing{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0 2px}
+
+    /* ===== Footer ===== */
+    footer{margin:26px 0 6px;color:var(--muted);font-size:12px;text-align:center}
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px){
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width: 680px){
+      .page{grid-template-columns:1fr}
+      .sidebar{display:none}
+      main{padding:18px 14px 28px}
+      .hero{flex-direction:column;align-items:flex-start}
+      .cta{width:100%}
+      .btn{flex:1;min-height:54px;border-radius:16px;font-size:16px}
+      .grid{grid-template-columns:1fr}
+      .ing{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside class="sidebar" aria-hidden="true">
+      <div class="vertical">美 食</div>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="title">想不到要吃什麼嗎？</div>
+          <div class="subtitle">按一下馬上給你 <b>200 道蔬食食譜</b> 的靈感 ✨（全素/蛋奶素可選）｜<b></b></div>
+        </div>
+        <div class="cta">
+          <button id="btn-random" class="btn">🎲 隨機推薦</button>
+          <button id="btn-all" class="btn secondary">📚 瀏覽全部</button>
+          <button id="btn-reset" class="btn ghost" title="清除篩選">↺ 重置</button>
+        </div>
+      </section>
+
+      <div class="toolbar">
+        <div class="search" role="search">
+          <span>🔎</span>
+          <input id="q" placeholder="搜尋食譜或食材（例：菠菜、味噌、咖哩）" />
+        </div>
+        <button class="chip active" data-type="全部">全部</button>
+        <button class="chip" data-type="快炒">快炒</button>
+        <button class="chip" data-type="湯品">湯品</button>
+        <button class="chip" data-type="沙拉">沙拉</button>
+        <button class="chip" data-type="飯麵">飯麵</button>
+        <button class="chip" data-type="烤焗">烤焗</button>
+        <button class="chip" data-type="小食">小食</button>
+      </div>
+
+      <section id="grid" class="grid" aria-live="polite"></section>
+
+      <footer>© 2025 VeggieKitchen. 純素友善・字少易讀・好做又好吃。無蒜版本。</footer>
+    </main>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="sheet" role="document">
+      <header>
+        <h2 id="detail-title">食譜</h2>
+        <div>
+          <span id="detail-type" class="pill">🍳 類型</span>
+          <button id="close" class="btn ghost" style="padding:8px 12px">關閉</button>
+        </div>
+      </header>
+      <div class="content">
+        <div class="pill" id="level-pill">⏱️ 15–25 分鐘</div>
+        <div class="pill" id="diet-pill">🥗 全素可</div>
+        <h3 style="margin:12px 0 6px">食材</h3>
+        <div id="ing" class="ing"></div>
+        <h3 style="margin:12px 0 6px">注意事項</h3>
+        <p id="note" class="note"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // ---------- Data generator ----------
+  // 規則：1) 真實食材 2) 風味必備一定顯示 3) 將「蒜末」全面移除並以「薑絲」替代。
+  const VEG = [
+    "青江菜","高麗菜","綠花椰菜","白花椰菜","菠菜","空心菜","地瓜葉","小白菜","娃娃菜",
+    "四季豆","蘆筍","秋葵","紅蘿蔔","白蘿蔔","馬鈴薯","南瓜","番茄","彩椒","玉米筍",
+    "香菇","杏鮑菇","秀珍菇","金針菇","鴻喜菇","黑木耳","海帶芽","牛蒡","茄子","",
+    "豆芽菜","豆苗","萵苣","小番茄","小黃瓜","","蓮藕"
+  ];
+  const PRO_BY_TYPE = {
+    "快炒":["板豆腐","豆干","油豆腐","百頁豆腐","麵腸(素雞)","毛豆"],
+    "湯品":["嫩豆腐","板豆腐","素丸","紅腰豆"],
+    "沙拉":["嫩豆腐","豆皮","鷹嘴豆","毛豆"],
+    "飯麵":["板豆腐","百頁豆腐","麵腸(素雞)","天貝"],
+    "烤焗":["板豆腐","天貝","麵腸(素雞)"],
+    "小食":["豆干","百頁豆腐","麵腸(素雞)","毛豆"]
+  };
+  const CARB = ["白飯","糙米飯","藜麥飯","烏龍麵","拉麵","義大利麵","筆管麵","河粉","米粉","冬粉","年糕","吐司","玉米餅","蕎麥麵","豆腐麵"];
+
+  const FLAVORS = {
+    // 將「蒜香」改為「薑香」
+    "薑香":"先爆香薑絲再下菜，避免焦苦。",
+    "麻油薑":"麻油最後拌入，香更足。",
+    "九層塔":"起鍋前再放，保香氣。",
+    "黑胡椒":"現磨最香，鹽量先少後補。",
+    "三杯":"醬油米酒糖 1:1:1，小火收汁。",
+    "宮保(素)":"乾辣椒先炒香，花生最後拌。",
+    "豆豉":"先沖一下去多餘鹹味。",
+    "麻辣":"辣油少量多次，先試辣度。",
+    "鹽麴":"抹 10 分鐘更鮮嫩。",
+    "糖醋":"醋最後下，微濃即可。",
+    "胡麻":"用溫水稀釋更滑順。",
+    "檸檬胡椒":"加檸檬皮屑＋胡椒，清香提味。",
+    "涼拌":"蔬菜冰鎮瀝乾再拌。",
+    "味噌":"味噌關火後調入，別久煮。",
+    "清燉":"小火慢燉，蔬菜軟而不糊。",
+    "番茄羅勒":"酸度高可少許糖平衡。",
+    "咖哩":"先炒香再加水煮至濃稠。",
+    "青醬":"避免加熱過久以保翠綠。"
+  };
+  const FLAVOR_ING_MAP = {
+    // 新增薑香的關鍵食材，並確保不含蒜
+    "薑香":["薑絲"],
+    "九層塔":["九層塔"],
+    "番茄羅勒":["番茄","羅勒"],
+    "青醬":["青醬"],
+    "胡麻":["胡麻醬"],
+    "檸檬胡椒":["檸檬","黑胡椒"],
+    "宮保(素)":["乾辣椒","花生"],
+    "三杯":["米酒","糖","醬油"],
+    "豆豉":["豆豉"],
+    "味噌":["味噌"],
+    "咖哩":["咖哩塊/粉"],
+    "麻辣":["辣油"],
+    "黑胡椒":["黑胡椒"],
+    "鹽麴":["鹽麴"],
+    "糖醋":["白醋","糖"]
+  };
+  const FLAVOR_BY_TYPE = {
+    // 將所有出現「蒜香」的地方改為「薑香」
+    "快炒":["薑香","九層塔","黑胡椒","三杯","宮保(素)","豆豉","麻辣","鹽麴","糖醋"],
+    "湯品":["味噌","清燉","番茄羅勒","咖哩"],
+    "沙拉":["胡麻","檸檬胡椒","涼拌"],
+    "飯麵":["咖哩","番茄羅勒","青醬","黑胡椒","胡麻"],
+    "烤焗":["黑胡椒","檸檬胡椒","青醬","番茄羅勒","咖哩","鹽麴"],
+    "小食":["薑香","胡麻","糖醋","黑胡椒","鹽麴"]
+  };
+  const TYPES = ["快炒","湯品","沙拉","飯麵","烤焗","小食"];
+  const TYPE_NOTES = {
+    "快炒":"大火快炒 2–4 分鐘，保脆。",
+    "湯品":"湯滾後轉小火，蔬菜軟即可。",
+    "沙拉":"瀝乾水分再拌，味道更進。",
+    "飯麵":"醬汁收至附著即可。",
+    "烤焗":"180–200°C 8–15 分鐘，表面微焦即可。",
+    "小食":"小火慢煎或氣炸，外酥內嫩。"
+  };
+
+  const pick = (arr)=> arr[Math.floor(Math.random()*arr.length)];
+  const rr = (min,max)=> Math.floor(Math.random()*(max-min+1))+min;
+
+  // 基礎調味：改為無蒜，使用薑絲
+  function packIngredients({flName,v1,v2,p,c}){
+    const essentials = FLAVOR_ING_MAP[flName]||[];
+    const basics = ["薑絲","醬油","鹽","植物油"]; // ⬅️ 這裡原本是含「蒜末」，已改為「薑絲」
+    const ordered = [...new Set([ ...essentials, ...basics, v1, p, c, v2 ].filter(Boolean))];
+    // 特例：關鍵詞存在性
+    if(flName==="番茄羅勒" && !ordered.includes("番茄")) ordered.splice(essentials.length,0,"番茄");
+    if(flName==="九層塔" && !ordered.includes("九層塔")) ordered.splice(essentials.length,0,"九層塔");
+    if((flName==="黑胡椒"||flName==="檸檬胡椒") && !ordered.includes("黑胡椒")) ordered.splice(essentials.length,0,"黑胡椒");
+    return ordered.slice(0,8);
+  }
+
+  let idSeed = 1;
+  function makeRecipe(){
+    const type = pick(TYPES);
+    const flName = pick(FLAVOR_BY_TYPE[type]);
+    const v1 = pick(VEG);
+    let v2 = Math.random()>.65 ? pick(VEG) : null; if(v2===v1) v2 = null;
+    let p = Math.random()>.55 ? pick(PRO_BY_TYPE[type]) : null;
+    const c = type==="飯麵" ? pick(CARB) : null;
+
+    const title = `${flName}${v1}${p?`＋${p}`:(v2?`＋${v2}`:``)}${type==='飯麵'&&c?`｜${c}`:``}`;
+    const ings = packIngredients({flName,v1,v2,p,c});
+    const note = `${FLAVORS[flName]} ${TYPE_NOTES[type]}`.trim();
+    const timeMap = {"快炒":[10,15],"湯品":[20,30],"沙拉":[6,10],"飯麵":[15,25],"烤焗":[15,25],"小食":[10,15]};
+    const t = timeMap[type];
+    return {id:idSeed++, title, type, ings, note, diet:"全素", time:`${rr(t[0],t[1])} 分鐘`};
+  }
+
+  // 產生 200 道不重複標題的食譜（無蒜）
+  const RECIPES = (()=>{ const set=new Set(), out=[]; let guard=0; while(out.length<200 && guard<6000){ const r=makeRecipe(); if(!set.has(r.title)){ set.add(r.title); out.push(r);} guard++; } return out; })();
+
+  // ---------- Render ----------
+  const grid = document.getElementById('grid');
+  const overlay = document.getElementById('overlay');
+  const q = document.getElementById('q');
+  const chips = [...document.querySelectorAll('.chip')];
+  let currentType = '全部';
+
+  function cardTemplate(r){
+    const tags = r.ings.map(i=>`<span class="tag">${i}</span>`).join('');
+    return `<article class="card" data-id="${r.id}" data-type="${r.type}">
+      <span class="badge">${r.type}</span>
+      <h3>${r.title}</h3>
+      <div class="meta">${tags}</div>
+      <div class="note">⚑ ${r.note}</div>
+      <div class="actions">
+        <button class="btn ghost btn-detail">看做法/注意</button>
+      </div>
+    </article>`
+  }
+
+  function render(list){
+    const html = list.map(cardTemplate).join('');
+    grid.innerHTML = html;
+    reveal();
+  }
+
+  function reveal(){
+    const io = new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} })
+    },{threshold:.1});
+    document.querySelectorAll('.card').forEach(c=>io.observe(c));
+    document.querySelectorAll('.btn-detail').forEach(btn=>btn.addEventListener('click', openDetail));
+  }
+
+  let showingAll = false;
+  function listByState(){
+    const kw = q.value.trim();
+    const base = RECIPES.filter(r => currentType==='全部' || r.type===currentType);
+    const filtered = kw? base.filter(r=> (r.title+" "+r.ings.join(' ')).includes(kw)) : base;
+    return showingAll? filtered : filtered.slice(0,24);
+  }
+  render(listByState());
+
+  document.getElementById('btn-all').addEventListener('click',()=>{
+    showingAll = !showingAll;
+    document.getElementById('btn-all').textContent = showingAll? '📚 收合到精選' : '📚 瀏覽全部';
+    render(listByState());
+  });
+
+  document.getElementById('btn-reset').addEventListener('click',()=>{
+    q.value=''; currentType='全部'; chips.forEach(c=>c.classList.toggle('active', c.dataset.type==='全部')); showingAll=false; document.getElementById('btn-all').textContent='📚 瀏覽全部'; render(listByState());
+  });
+
+  chips.forEach(c=>c.addEventListener('click',()=>{
+    chips.forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    currentType = c.dataset.type;
+    render(listByState());
+  }));
+
+  q.addEventListener('input',()=> render(listByState()));
+
+  const btnRandom = document.getElementById('btn-random');
+  btnRandom.addEventListener('click',()=>{
+    btnRandom.classList.add('shake');
+    setTimeout(()=>btnRandom.classList.remove('shake'),420);
+    const pool = listByState();
+    const pickOne = pool[Math.floor(Math.random()*pool.length)] || RECIPES[Math.floor(Math.random()*RECIPES.length)];
+    showDetail(pickOne);
+  });
+
+  function openDetail(e){
+    const id = +e.target.closest('.card').dataset.id;
+    const r = RECIPES.find(x=>x.id===id);
+    showDetail(r);
+  }
+  function showDetail(r){
+    document.getElementById('detail-title').textContent = r.title;
+    document.getElementById('detail-type').textContent = `${r.type}`;
+    document.getElementById('level-pill').textContent = `⏱️ ${r.time}`;
+    document.getElementById('diet-pill').textContent = r.diet==='全素'? '🥗 全素可' : '🥚 蛋奶素';
+    document.getElementById('ing').innerHTML = r.ings.map(i=>`<div class="pill">🛒 ${i}</div>`).join('');
+    document.getElementById('note').textContent = r.note;
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+  }
+  document.getElementById('close').addEventListener('click',()=>{overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true')});
+  overlay.addEventListener('click',e=>{ if(e.target===overlay){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true')} });
+  window.addEventListener('keydown',e=>{ if(e.key==='Escape'){ overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true') } });
+  </script>
+</body>
+</html>
